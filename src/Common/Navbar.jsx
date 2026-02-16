@@ -9,7 +9,7 @@ function Navbar() {
          navigate("/login");
     } 
   return (
-    <nav className='navbar navbar-dark bg-dark px-3'>
+    <nav className='navbar navbar-expand-lg navbar-dark bg-dark px-3'>
         <span className='navbar-brand'>Router Demo</span>
         {
             loggedUser && (
@@ -18,7 +18,7 @@ function Navbar() {
                         Welcome {loggedUser.name}
                     </span>
                     <Link to="/dashboard" className='btn btn-outline-light me-2'> Dashboard </Link>
-                    
+                    <Link to="/edit-profile" className='btn btn-outline-light me-2'> Edit Profile </Link>
                     <button onClick={logout} >Logout</button>
                 </>
             )

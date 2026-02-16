@@ -25,7 +25,7 @@ const Login = () => {
                 localStorage.setItem("email", user.email);
 
                 toast.success("Login successful");
-                navigate("/dashboard"); // make sure route is lowercase
+                navigate("/dashboard"); 
             } else {
                 toast.error("Invalid email or password");
             }
