@@ -25,4 +25,9 @@ export const DeleteUserService = async (userId) => {
     const url = `${baseUrl}/User`; 
     const response = await axios.post(url, data);
     return response; // full response
-}
+};
+
+export const ApproveRejectUserService = async (userId, isActive) => {
+    const url = `${baseUrl}/User/ApproveReject?UserId=${userId}&IsActive=${isActive}`;
+    return await axios.post(url);
+};

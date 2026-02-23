@@ -4,7 +4,8 @@ import {
     GetAllUsersService,
     UpdateUserService ,
     DeleteUserService ,
-    AddUserService
+    AddUserService,
+    ApproveRejectUserService
 } from "../Services/UserService";
 import EditUserModal from "../components/EditUserModal";
 import AddUserModal from "../components/AddUserModal";
@@ -47,17 +48,17 @@ async function handleAddUser(newUser) {
     }
   }
 
-  async function handleApprove(user) {
-    try {
-      const updatedUser = { ...user, status: "Approved" }; 
-      const res = await UpdateUserService(updatedUser);
-      alert(res.data);
-      fetchUsers();
-    } catch (err) {
-      console.error(err);
-      alert("Approve failed");
-    }
-  }
+//   async function handleApprove(user) {
+//     try {
+//       const updatedUser = { ...user, status: "Approved" }; 
+//       const res = await UpdateUserService(updatedUser);
+//       alert(res.data);
+//       fetchUsers();
+//     } catch (err) {
+//       console.error(err);
+//       alert("Approve failed");
+//     }
+//   }
 
   async function handleUpdateUser(updatedUser) {
     console.log( updatedUser);
@@ -85,6 +86,17 @@ async function handleAddUser(newUser) {
       console.error("Delete failed", error);
     }
   }
+
+
+  const handleApprove = async (id) => {
+    await ApproveRejectUserService(id, 1);
+    fetchUsers();
+};
+
+const handleReject = async (id) => {
+    await ApproveRejectUserService(id, 0);
+    fetchUsers();
+};
 
   if (loading) return <h4>Loading users...</h4>;
 
@@ -153,6 +165,28 @@ async function handleAddUser(newUser) {
                 >
                   Delete
                 </button>
+
+<td>
+    {user.isActive === 0 && (
+        <button
+            className="btn btn-success btn-sm me-2"
+            onClick={() => handleApprove(user.userId)}
+        >
+            Approve
+        </button>
+    )}
+
+    {user.isActive === 1 && (
+        <button
+            className="btn btn-warning btn-sm"
+            onClick={() => handleReject(user.userId)}
+        >
+            Reject
+        </button>
+    )}
+</td>
+
+
               </td>
             </tr>
           ))}
